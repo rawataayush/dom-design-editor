@@ -1,0 +1,64 @@
+/* Color  */
+$color-bg-app: #f4f5f7;
+$color-bg-panel: #ffffff;
+$color-bg-canvas: #e9eaec;
+
+$color-border: #d0d4d9;
+$color-border-strong: #2684ff;
+
+$color-text-primary: #1f2933;
+$color-text-secondary: #6b7280;
+
+$color-accent: #2684ff;
+$color-danger: #e5533d;
+
+/*  Spacing  */
+$space-xxs: 4px;
+$space-xs: 8px;
+$space-sm: 12px;
+$space-md: 16px;
+$space-lg: 24px;
+
+/* Sizes */
+$toolbar-height: 48px;
+$panel-width: 240px;
+
+/* Typography */
+$font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+/* Z-index */
+$z-index-toolbar: 10;
+$z-index-panel: 5;
+$z-index-canvas: 1;
+
+/* Mixins */
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style {
+    background-color: $color-accent;
+    color: #fff;
+    border: none;
+    padding: $space-sm $space-md;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: darken($color-accent, 10%);
+    }
+}
+
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: $font-family-base;
+}
+body, html {
+    height: 100%;
+    background-color: $color-bg-app;
+    color: $color-text-primary;
+}

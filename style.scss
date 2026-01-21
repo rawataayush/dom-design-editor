@@ -1,37 +1,82 @@
-/* Color  */
-$color-bg-app: #f4f5f7;
-$color-bg-panel: #ffffff;
-$color-bg-canvas: #e9eaec;
+/* Accent (Primary Action) */
+$color-primary: #2563eb;
+$color-primary-hover: #1d4ed8;
+$color-primary-active: #1e40af;
 
-$color-border: #d0d4d9;
-$color-border-strong: #2684ff;
+/* App Backgrounds */
+$app-bg: #f3f4f6;
+$panel-bg: #ffffff;
 
-$color-text-primary: #1f2933;
-$color-text-secondary: #6b7280;
+/* Workspace & Canvas */
+$color-workspace-bg: #F3F4F6;
+$color-canvas-bg: #FFFFFF;
+$color-canvas-border: #D1D5DB;
+$color-canvas-shadow: rgba(0, 0, 0, 0.05);
 
-$color-accent: #2684ff;
-$color-danger: #e5533d;
+/* Layers Panel States */
+$color-layer-hover-bg: #F3F4F6;
+$color-layer-active-bg: #E5E7EB;
+$color-layer-active-accent: #2563EB;
 
-/*  Spacing  */
+/* Property Panel */
+$color-property-group-title: #6B7280;
+$color-property-border: #D1D5DB;
+
+/* Text Colors */
+$primary-text: #111827;
+$secondary-text: #6b7280;
+$disabled-text: #9ca3af;
+
+/* Secondary Buttons */
+$button-bg: #ffffff;
+$button-border: #d1d5db;
+$button-text: #111827;
+$button-bg-hover: #f9fafb;
+
+/* Primary Buttons */
+$primary-btn-text: #ffffff;
+$primary-bg-hover: #1d4ed8;
+
+/* Export Buttons */
+$export-bg: #f3f4f6;
+$export-bg-hover: #e5e7eb;
+$export-text: #111827;
+
+/* Input Fields */
+$input-bg: #ffffff;
+$input-border: #d1d5db;
+$input-focus: #2563eb;
+$input-text: #111827;
+$input-focus-ring: rgba(37, 99, 235, 0.3);
+
+/* Selection & Focus */
+$selection-outline: #2563eb;
+$resize-handle: #2563eb;
+$resize-handle-bg: #ffffff;
+
+/*  SPACING  */
 $space-xxs: 4px;
 $space-xs: 8px;
 $space-sm: 12px;
 $space-md: 16px;
 $space-lg: 24px;
+$space-xl: 32px;
+$space-xxl: 40px;
+$space-xxxl: 48px;
 
-/* Sizes */
+/* SIZES */
 $toolbar-height: 48px;
 $panel-width: 240px;
 
-/* Typography */
-$font-family-base: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+/* TYPOGRAPHY */
+$font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-/* Z-index */
+/* Z-INDEX */
 $z-index-toolbar: 10;
 $z-index-panel: 5;
 $z-index-canvas: 1;
 
-/* Mixins */
+/* MIXINS */
 @mixin flex-center {
     display: flex;
     justify-content: center;
@@ -39,19 +84,18 @@ $z-index-canvas: 1;
 }
 
 @mixin button-style {
-    background-color: $color-accent;
-    color: #fff;
+    background-color: $color-primary;
+    color: $primary-btn-text;
     border: none;
-    padding: $space-sm $space-md;
-    border-radius: 4px;
+    padding: $space-xs $space-sm;
+    border-radius: $space-xxs;
     cursor: pointer;
 
     &:hover {
-        background-color: darken($color-accent, 10%);
+        background-color: $primary-bg-hover;
     }
 }
 
-/* Reset and Base Styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -62,52 +106,214 @@ $z-index-canvas: 1;
 body,
 html {
     height: 100%;
-    background-color: $color-bg-app;
-    color: $color-text-primary;
+    background-color: $app-bg;
+    color: $primary-text;
+    overflow: hidden;
 }
 
-/* Layout */
 .app {
     display: flex;
+    flex-direction: column;
     height: 100vh;
-    // flex-direction: column;
 
     .toolbar {
         height: $toolbar-height;
-        background-color: $color-bg-panel;
-        border-bottom: 1px solid $color-border;
-        @include flex-center;
-        position: fixed;
+        background-color: $panel-bg;
+        border-bottom: 1px solid $color-canvas-border;
+        padding-inline: $space-sm;
+        display: flex;
+        align-items: center;
+        position: relative;
         top: 0;
         left: 0;
         right: 0;
         z-index: $z-index-toolbar;
 
-        .toolbar_group {
+        .toolbar__group {
             margin: 0 $space-md;
             display: flex;
             gap: $space-sm;
         }
 
-        .group--left {
+        .toolbar__group--left {
             .btn {
                 @include button-style;
             }
         }
 
-        .group--right {
+        .toolbar__group--right {
             margin-left: auto;
 
             .btn {
-                background-color: $color-danger;
-                color: #fff;
-                border: none;
-                padding: $space-sm $space-md;
-                border-radius: 4px;
+                background-color: $export-bg;
+                color: $export-text;
+                border: 1px solid $button-border;
+                padding: $space-xs $space-sm;
+                border-radius: $space-xxs;
+                line-height: 1;
                 cursor: pointer;
 
                 &:hover {
-                    background-color: darken($color-danger, 10%);
+                    background-color: $button-bg-hover;
+                }
+            }
+        }
+    }
+
+    .workspace {
+        display: flex;
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+        background-color: $color-workspace-bg;
+
+        .panel {
+            width: $panel-width;
+            background-color: $panel-bg;
+            border-right: 1px solid $color-canvas-border;
+            padding: $space-sm;
+            z-index: $z-index-panel;
+        }
+
+        .panel--layers{
+            overflow-y: auto;
+            .panel__title {
+                font-size: 1.25rem;
+                font-weight: bold;
+                margin-bottom: $space-md;
+            }
+
+            .layers-list {
+                list-style: none;
+
+                .layers-empty{
+                    font-size: 0.95rem;
+                    color: $disabled-text;
+                    margin-top: $space-sm;
+                }
+
+                .layer-item {
+                    padding: $space-xs 0;
+                    border-bottom: 1px solid $color-canvas-border;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $color-layer-hover-bg;
+                    }
+
+                    .layer-item__label {
+                        color: $secondary-text;
+                        font-weight: 600;
+                    }
+
+                    .layer-item__type {
+                        font-size: 0.875rem;
+                        color: $secondary-text;
+                    }
+                }
+
+                .layer-item.is-active{
+                    background-color: $color-layer-active-bg;
+                    border-left: 3px solid $color-layer-active-accent;
+                    padding-left: $space-xs;
+                }
+            }
+
+            .layers-controls {
+                margin-top: $space-md;
+
+                .btn {
+                    @include button-style;
+                    width: 100%;
+                    margin-bottom: $space-xs;
+                }
+            }
+        }
+
+        .canvas-wrapper{
+            @include flex-center;
+            flex: 1;
+            position: relative;
+            
+            .canvas {
+                width: 1000px;
+                height: 700px;
+                overflow: hidden;
+                background-color: $color-canvas-bg;
+                box-shadow: $color-canvas-shadow;
+                border: 1px solid $color-canvas-border;
+                position: relative;
+            }
+        }
+
+        .panel--properties {
+            width: $panel-width;
+            background-color: $panel-bg;
+            border-left: 1px solid $color-canvas-border;
+            padding: $space-md;
+            z-index: $z-index-panel;
+            overflow-y: auto;
+
+            .panel__title{
+                font-size: 1.25rem;
+                font-weight: bold;
+                margin-bottom: $space-md;
+            }
+
+            .properties.is-disabled{
+                opacity: 0.5;
+                pointer-events: none;
+            }
+
+            .properties{
+                display: flex;
+                flex-direction: column;
+
+                .property-group{
+                    margin-bottom: $space-md;
+
+                    .property-group__title{
+                        font-size: 1rem;
+                        font-weight: 600;
+                        margin-bottom: $space-xs;
+                        color: $secondary-text;
+                    }
+
+                    .property-row{
+                        display: flex;
+                        gap: $space-sm;
+
+                        .property{
+                            display: flex;
+                            flex-direction: column;
+                            flex: 1;
+                            margin-bottom: $space-sm;
+    
+                            .property__label{
+                                font-size: 0.875rem;
+                                margin-bottom: $space-xs;
+                                color: $disabled-text;
+                            }
+    
+                            .property__input{
+                                padding: $space-xs;
+                                border: 1px solid $color-canvas-border;
+                                border-radius: 4px;
+                                font-size: 1rem;
+                                width: 100%;
+
+                                &:focus{
+                                    outline: none;
+                                    border-color: $color-canvas-border;
+                                    box-shadow: $input-focus-ring;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .property-group--text{
+                    display: none;
                 }
             }
         }

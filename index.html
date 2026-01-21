@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design Editor</title>
+    <title>DOM Design Editor</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,17 +11,100 @@
 
         <!--Toolbar-->
         <header class="toolbar">
-            <div class="toolbar_group group--left">
+            <div class="toolbar__group toolbar__group--left">
                 <button id="add-rect-btn" class="btn">Rectangle</button>
                 <button id="add-circle-btn" class="btn">Circle</button>
                 <button id="add-text-btn" class="btn">Text</button>
             </div>
-            <div class="toolbar_group group--right">
+            <div class="toolbar__group toolbar__group--right">
                 <button id="export-json-btn" class="btn">Export JSON</button>
                 <button id="export-html-btn" class="btn">Export HTML</button>
             </div>
         </header>
 
+        <!-- Main Workspace -->
+        <div class="workspace">
+            <aside class="panel panel--layers">
+                <h3 class="panel__title">Layers</h3>
+                <ul id="layers-list" class="layers-list">
+                    <!-- Layers will be dynamically added here -->
+                    <li class="layer-empty">No layers yet</li>
+                </ul>
+                <div class="layers-controls">
+                    <button id="layer-up-btn" class="btn">↑</button>
+                    <button id="layer-down-btn" class="btn">↓</button>
+                </div>
+            </aside>
+
+            <main class="canvas-wrapper">
+                <div id="canvas" class="canvas">
+                    <!-- Design elements will be dynamically added here -->
+                </div>
+            </main>
+
+            <aside class="panel panel--properties">
+                <h3 class="panel__title">Properties</h3>
+                <div class="properties is-disabled">
+                    <div class="property-group property-group--position">
+                        <h4 class="property-group__title">Position</h4>
+                        <div class="property-row">
+                            <div class="property">
+                                <label for="prop-x" class="property__label">X:</label>
+                                <input type="number" id="prop-x" class="property__input" />
+                            </div>
+                            <div class="property">
+                                <label for="prop-y" class="property__label">Y:</label>
+                                <input type="number" id="prop-y" class="property__input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-group property-group--size">
+                        <h4 class="property-group__title">Size</h4>
+                        <div class="property-row">
+                            <div class="property">
+                                <label for="prop-width" class="property__label">Width:</label>
+                                <input type="number" id="prop-width" class="property__input" />
+                            </div>
+                            <div class="property">
+                                <label for="prop-height" class="property__label">Height:</label>
+                                <input type="number" id="prop-height" class="property__input" />
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <div class="property">
+                                <label for="prop-rotation" class="property__label">Rotation:</label>
+                                <input type="number" id="prop-rotation" class="property__input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-group property-group--style">
+                        <h4 class="property-group__title">Style</h4>
+                        <div class="property-row">
+                            <div class="property">
+                                <label for="prop-bg-color" class="property__label">Fill:</label>
+                                <input type="color" id="prop-bg-color" class="property__input" />
+                            </div>
+                            <div class="property">
+                                <label for="prop-border-radius" class="property__label">Border Radius:</label>
+                                <input type="number" id="prop-border-radius" class="property__input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-group property-group--text">
+                        <h4 class="property-group__title">Text</h4>
+                        <div class="property-row">
+                            <div class="property">
+                                <label for="prop-text-content" class="property__label">Content:</label>
+                                <input type="text" id="prop-text-content" class="property__input" placeholder="Enter text" />
+                            </div>
+                            <div class="property">
+                                <label for="prop-font-size" class="property__label">Font Size:</label>
+                                <input type="number" id="prop-font-size" class="property__input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
 </body>
 </html>

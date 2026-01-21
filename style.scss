@@ -24,7 +24,7 @@ $toolbar-height: 48px;
 $panel-width: 240px;
 
 /* Typography */
-$font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-base: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
 /* Z-index */
 $z-index-toolbar: 10;
@@ -45,6 +45,7 @@ $z-index-canvas: 1;
     padding: $space-sm $space-md;
     border-radius: 4px;
     cursor: pointer;
+
     &:hover {
         background-color: darken($color-accent, 10%);
     }
@@ -57,8 +58,58 @@ $z-index-canvas: 1;
     padding: 0;
     font-family: $font-family-base;
 }
-body, html {
+
+body,
+html {
     height: 100%;
     background-color: $color-bg-app;
     color: $color-text-primary;
+}
+
+/* Layout */
+.app {
+    display: flex;
+    height: 100vh;
+    // flex-direction: column;
+
+    .toolbar {
+        height: $toolbar-height;
+        background-color: $color-bg-panel;
+        border-bottom: 1px solid $color-border;
+        @include flex-center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: $z-index-toolbar;
+
+        .toolbar_group {
+            margin: 0 $space-md;
+            display: flex;
+            gap: $space-sm;
+        }
+
+        .group--left {
+            .btn {
+                @include button-style;
+            }
+        }
+
+        .group--right {
+            margin-left: auto;
+
+            .btn {
+                background-color: $color-danger;
+                color: #fff;
+                border: none;
+                padding: $space-sm $space-md;
+                border-radius: 4px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: darken($color-danger, 10%);
+                }
+            }
+        }
+    }
 }

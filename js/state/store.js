@@ -42,7 +42,7 @@ function updateElement(id, updates){
 }
 
 function setSelectedElementId(id){
-    setSelectedElementId = id;
+    let SelectedElementId = id;
 }
 
 function clearSelection(){

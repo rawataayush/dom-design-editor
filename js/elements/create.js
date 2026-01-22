@@ -28,7 +28,7 @@ function createText() {
         rotation: 0,
         styles: {},
         content: "Type here"
-    }
+    };
 
     addElement(textObject);
     setSelectedElementId(textObject.id);
@@ -36,4 +36,21 @@ function createText() {
     renderCanvas();
 }
 
-export {createRectangle, createText};
+function createCircle() {
+    let circleObject = {
+        id: generateId(),
+        type: "circle",
+        position: {x: 200, y: 120},
+        size: {height: 200, width: 200},
+        rotation: 0,
+        styles: {backgroundColor: "#2563eb", borderRadius: 50},
+        content: null
+    };
+
+    addElement(circleObject);
+    setSelectedElementId(circleObject.id);
+
+    renderCanvas();
+}
+
+export {createRectangle, createText, createCircle};

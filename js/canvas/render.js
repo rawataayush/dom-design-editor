@@ -25,9 +25,8 @@ function createElementNode(element) {
     elem.style.transform = `rotate(${element.rotation}deg)`;
 
     // Styles
-    if (element.styles?.backgroundColor) {
-        elem.style.backgroundColor = element.styles.backgroundColor;
-    }
+    if (element.styles?.backgroundColor) elem.style.backgroundColor = element.styles.backgroundColor;
+    if (element.styles?.borderRadius) elem.style.borderRadius = element.styles.borderRadius + '%';
 
     //Text Element
     if(element.type === 'text') {

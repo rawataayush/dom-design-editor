@@ -7,6 +7,7 @@ import { renderLayers } from "./panels/layer.js";
 import { renderCanvas } from "./canvas/render.js";
 import { loadFromLocalStorage, saveToLocalStorage } from "./state/store.js";
 import { exportJSON } from "./utils/export.js";
+import { exportHTML } from "./utils/exportHtml.js";
 
 document.getElementById("add-rect-btn").addEventListener('click', createRectangle);
 document.getElementById('add-text-btn').addEventListener('click', createText);
@@ -30,6 +31,7 @@ canvas.addEventListener('mousedown', (e)=> {
 });
 
 document.getElementById("export-json-btn").addEventListener("click", exportJSON);
+document.getElementById("export-html-btn").addEventListener("click", exportHTML);
 
 function renderAll () {
     loadFromLocalStorage();

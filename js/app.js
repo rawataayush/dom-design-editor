@@ -6,6 +6,7 @@ import { isInteractionActive } from "./state/interaction.js";
 import { renderLayers } from "./panels/layer.js";
 import { renderCanvas } from "./canvas/render.js";
 import { loadFromLocalStorage, saveToLocalStorage } from "./state/store.js";
+import { exportJSON } from "./utils/export.js";
 
 document.getElementById("add-rect-btn").addEventListener('click', createRectangle);
 document.getElementById('add-text-btn').addEventListener('click', createText);
@@ -28,7 +29,7 @@ canvas.addEventListener('mousedown', (e)=> {
     }
 });
 
-
+document.getElementById("export-json-btn").addEventListener("click", exportJSON);
 
 function renderAll () {
     loadFromLocalStorage();

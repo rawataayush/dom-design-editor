@@ -24,7 +24,7 @@ function addElement(elem){
 }
 
 function removeElement(id){
-    element = elements.filter(elem => elem.id !== id);
+    elements = elements.filter(elem => elem.id !== id);
     if(selectedElementId === id){
         selectedElementId = null;
     }
@@ -42,7 +42,7 @@ function updateElement(id, updates){
 }
 
 function setSelectedElementId(id){
-    let SelectedElementId = id;
+    selectedElementId = id;
 }
 
 function clearSelection(){

@@ -1,6 +1,7 @@
 import { getElements, getSelectedElementId } from "../state/store.js";
 
 const canvas = document.getElementById("canvas");
+const propertiesPanel = document.querySelector('.properties');
 
 function clearCanvas() {
     canvas.innerHTML = "";
@@ -11,6 +12,7 @@ function createElementNode(element) {
 
     elem.classList.add('editor-element');
     elem.dataset.id = element.id;
+    elem.draggable = false;
 
     // position
     elem.style.position = "absolute";
@@ -34,8 +36,12 @@ function createElementNode(element) {
     }
 
     const selectId = getSelectedElementId();
-    if(selectId === element.id) {
-        elem.classList.add('is-selected');
+    if(selectId === element.id) elem.classList.add('is-selected');
+
+    if (!selectId) {
+        propertiesPanel.classList.add('is-disabled');
+    } else {
+        propertiesPanel.classList.remove('is-disabled');
     }
 
     return elem;

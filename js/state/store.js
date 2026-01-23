@@ -67,6 +67,32 @@ function clearSelection(){
     selectedElementId = null;
 }
 
+function moveLayerUp(id) {
+    const sorted = [...elements].sort((a, b) => a.zIndex -b.zIndex);
+    const index = sorted.findIndex(e => e.id === id);
+    if(index === sorted.length -1) return;
+
+    const current =sorted[index];
+    const above = sorted[index + 1];
+
+    const temp = current.zIndex;
+    current.zIndex = above.zIndex;
+    above.zIndex = temp;
+}
+
+function moveLayerDown(id) {
+    const sorted = [...elements].sort((a, b) => a.zIndex -b.zIndex);
+    const index = sorted.findIndex(e => e.id === id);
+    if(index === 0) return;
+
+    const current = sorted[index];
+    const below = sorted[index -1];
+
+    const temp = current.zIndex;
+    current.zIndex = below.zIndex;
+    below.zIndex = temp;
+}
+
 export {
     getElements,
     getSelectedElement,
@@ -77,5 +103,7 @@ export {
     removeElement,
     updateElement,
     setSelectedElementId,
-    clearSelection
+    clearSelection,
+    moveLayerUp,
+    moveLayerDown
 };

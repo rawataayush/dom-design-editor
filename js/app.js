@@ -15,6 +15,7 @@ import {
 
 import { renderCanvas } from "./canvas/render.js";
 import { renderLayers } from "./panels/layer.js";
+import { renderProperties } from "./panels/properties.js";
 
 import { exportJSON } from "./utils/export.js";
 import { exportHTML } from "./utils/exportHtml.js";
@@ -47,22 +48,40 @@ canvas.addEventListener('mousedown', (e)=> {
     }
 });
 
+
 // EXPORT ACTIONS
 exportJsonBtn.addEventListener("click", exportJSON);
 exportHtmlBtn.addEventListener("click", exportHTML);
 
-// KEYWORD CONTROLS
+// KEYBOARD CONTROLS
 
 document.addEventListener("keydown", (e) => {
+
+    if(e.target.tagName === "INPUT" || 
+        e.target.tagName === "TEXTAREA"
+    ) {
+        return;
+    }
+
     const selectedId = getSelectedElementId();
     if(!selectedId) return;
-
-    if(e.key === "Delete" || e.key === "Backspace") {
+    
+    if (e.key === "Enter") {
+        const elem =document.querySelector('.editor-element.is-selected[data-type="text"]');
+        if(elem) {
+            elem.contentEditable = true;
+            elem.focus();
+            elem.preventDefault();
+        }
+    }
+    
+    if(e.key === "Delete") {
         removeElement(selectedId);
         clearSelection();
         saveToLocalStorage();
         renderCanvas();
         renderLayers();
+        renderProperties();
     }
 })
 
@@ -72,6 +91,7 @@ function renderAll () {
     loadFromLocalStorage();
     renderCanvas();
     renderLayers();
+    renderProperties();
 }
 
 renderAll();

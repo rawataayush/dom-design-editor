@@ -168,10 +168,12 @@ html {
 }
 .app .workspace .editor-element {
   position: absolute;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  overflow: hidden;
+  word-break: break-word;
+  white-space: normal;
   pointer-events: auto;
+  padding: 4px;
+  line-height: 1.2;
 }
 .app .workspace .editor-element.is-selected {
   outline: 2px solid #2563eb;

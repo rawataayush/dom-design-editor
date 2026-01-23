@@ -1,4 +1,4 @@
-import { getElements, getSelectedElementId } from "../state/store.js";
+import { getElements, getSelectedElementId, saveToLocalStorage, updateElement } from "../state/store.js";
 
 const canvas = document.getElementById("canvas");
 const propertiesPanel = document.querySelector('.properties');
@@ -12,6 +12,7 @@ function createElementNode(element) {
 
     elem.classList.add('editor-element');
     elem.dataset.id = element.id;
+    elem.dataset.type = element.type;
     elem.draggable = false;
 
     // position
@@ -29,9 +30,20 @@ function createElementNode(element) {
     // Styles
     if (element.styles?.backgroundColor) elem.style.backgroundColor = element.styles.backgroundColor;
     if (element.styles?.borderRadius) elem.style.borderRadius = element.styles.borderRadius + '%';
+
     //Text Element
     if(element.type === 'text') {
         elem.textContent = element.content || "";
+
+        elem.addEventListener("blur", ()=> {
+            updateElement(element.id, {content: elem.textContent});
+            saveToLocalStorage();
+            renderCanvas();
+        });
+    }
+
+    if (element.type === "text" && element.styles?.fontSize) {
+        elem.style.fontSize = element.styles.fontSize + "px";
     }
 
     const selectId = getSelectedElementId();

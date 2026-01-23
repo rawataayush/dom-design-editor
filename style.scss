@@ -252,8 +252,12 @@ html {
 
         .editor-element{
             position: absolute;
-            user-select: none;
+            overflow: hidden;
+            word-break: break-word;
+            white-space: normal;
             pointer-events: auto;
+            padding: $space-xxs;
+            line-height: 1.2;
         }
         .editor-element.is-selected {
             outline: 2px solid $selection-outline;

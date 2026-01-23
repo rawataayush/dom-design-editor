@@ -4,7 +4,8 @@ import  {
     setSelectedElementId,
     bringToFront,
     moveLayerUp,
-    moveLayerDown
+    moveLayerDown,
+    saveToLocalStorage
 } from "../state/store.js";
 
 import { renderCanvas } from "../canvas/render.js";
@@ -50,6 +51,7 @@ upBtn.addEventListener("click", () => {
     const id = getSelectedElementId();
     if (!id) return;
     moveLayerUp(id);
+    saveToLocalStorage();
     renderCanvas();
     renderLayers();
 });
@@ -58,6 +60,7 @@ downBtn.addEventListener("click", () => {
     const id =getSelectedElementId();
     if (!id) return;
     moveLayerDown(id);
+    saveToLocalStorage();
     renderCanvas();
     renderLayers();
 })

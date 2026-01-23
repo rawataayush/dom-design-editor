@@ -93,6 +93,22 @@ function moveLayerDown(id) {
     below.zIndex = temp;
 }
 
+function saveToLocalStorage() {
+    localStorage.setItem("design-editor-elements", JSON.stringify(elements));
+}
+
+function loadFromLocalStorage() {
+    const data = localStorage.getItem("design-editor-elements");
+    if(!data) return;
+
+    try {
+        elements = JSON.parse(data);
+    } catch (err) {
+        console.error("Failed to load saved design", err);
+        elements = [];
+    }
+}
+
 export {
     getElements,
     getSelectedElement,
@@ -105,5 +121,7 @@ export {
     setSelectedElementId,
     clearSelection,
     moveLayerUp,
-    moveLayerDown
+    moveLayerDown,
+    saveToLocalStorage,
+    loadFromLocalStorage
 };

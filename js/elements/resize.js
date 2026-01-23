@@ -1,4 +1,4 @@
-import { getSelectedElement, updateElement } from "../state/store.js";
+import { getSelectedElement, updateElement, saveToLocalStorage } from "../state/store.js";
 import { renderCanvas } from "../canvas/render.js";
 import { startInteraction, endInteraction, isInteractionActive } from "../state/interaction.js";
 
@@ -119,5 +119,6 @@ window.addEventListener('mouseup', ()=> {
     isResizing = false;
     resizeCorner = null;
     endInteraction();
+    saveToLocalStorage();
     renderCanvas();
 });

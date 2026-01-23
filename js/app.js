@@ -5,6 +5,7 @@ import "./elements/resize.js";
 import { isInteractionActive } from "./state/interaction.js";
 import { renderLayers } from "./panels/layer.js";
 import { renderCanvas } from "./canvas/render.js";
+import { loadFromLocalStorage, saveToLocalStorage } from "./state/store.js";
 
 document.getElementById("add-rect-btn").addEventListener('click', createRectangle);
 document.getElementById('add-text-btn').addEventListener('click', createText);
@@ -27,7 +28,10 @@ canvas.addEventListener('mousedown', (e)=> {
     }
 });
 
+
+
 function renderAll () {
+    loadFromLocalStorage();
     renderCanvas();
     renderLayers();
 }

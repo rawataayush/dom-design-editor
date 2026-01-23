@@ -1,4 +1,4 @@
-import { addElement, setSelectedElementId, getNextElementPosition} from "../state/store.js";
+import { addElement, setSelectedElementId, getNextElementPosition, saveToLocalStorage} from "../state/store.js";
 import { renderCanvas } from "../canvas/render.js";
 import { generateId } from "../utils/id.js";
 
@@ -14,6 +14,7 @@ function createRectangle() {
     };
 
     addElement(rectangleObject);
+    saveToLocalStorage();
     setSelectedElementId(rectangleObject.id);
 
     renderCanvas();
@@ -31,6 +32,7 @@ function createText() {
     };
 
     addElement(textObject);
+    saveToLocalStorage();
     setSelectedElementId(textObject.id);
     renderCanvas();
 }
@@ -47,6 +49,7 @@ function createCircle() {
     };
 
     addElement(circleObject);
+    saveToLocalStorage();
     setSelectedElementId(circleObject.id);
     renderCanvas();
 }

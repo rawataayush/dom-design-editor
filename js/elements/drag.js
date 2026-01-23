@@ -1,4 +1,4 @@
-import { getSelectedElement, updateElement } from "../state/store.js";
+import { getSelectedElement, updateElement, saveToLocalStorage } from "../state/store.js";
 import { renderCanvas } from "../canvas/render.js";
 import { isInteractionActive, startInteraction, endInteraction } from "../state/interaction.js";
 
@@ -61,6 +61,8 @@ window.addEventListener('mouseup', ()=> {
     isDragging = false;
     draggedElementId = null;
     endInteraction();
+
+    saveToLocalStorage();
     renderCanvas();
 })
 

@@ -1,7 +1,8 @@
 import { renderCanvas } from "../canvas/render.js";
-import { clearSelection, setSelectedElementId } from "../state/store.js";
+import { clearSelection, setSelectedElementId, bringToFront } from "../state/store.js";
 
 function selectElementById(id) {
+    bringToFront(id);
     setSelectedElementId(id);
     renderCanvas();
 }

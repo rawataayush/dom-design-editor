@@ -63,6 +63,10 @@ html {
 .app .toolbar .toolbar__group--left .btn:hover {
   background-color: #1d4ed8;
 }
+.app .toolbar .toolbar__group--left #add-circle-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .app .toolbar .toolbar__group--right {
   margin-left: auto;
 }
@@ -84,6 +88,7 @@ html {
   width: 100%;
   min-height: 0;
   background-color: #F3F4F6;
+  /* Corners */
 }
 .app .workspace .panel {
   width: 240px;
@@ -160,6 +165,45 @@ html {
   box-shadow: rgba(0, 0, 0, 0.05);
   border: 1px solid #D1D5DB;
   position: relative;
+}
+.app .workspace .editor-element {
+  position: absolute;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: auto;
+}
+.app .workspace .editor-element.is-selected {
+  outline: 2px solid #2563eb;
+}
+.app .workspace .editor-element .resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #2563eb;
+  border-radius: 2px;
+  z-index: 10;
+  pointer-events: all;
+}
+.app .workspace .editor-element .resize-handle[data-corner=tl] {
+  top: -4px;
+  left: -4px;
+  cursor: nwse-resize;
+}
+.app .workspace .editor-element .resize-handle[data-corner=tr] {
+  top: -4px;
+  right: -4px;
+  cursor: nesw-resize;
+}
+.app .workspace .editor-element .resize-handle[data-corner=bl] {
+  bottom: -4px;
+  left: -4px;
+  cursor: nesw-resize;
+}
+.app .workspace .editor-element .resize-handle[data-corner=br] {
+  bottom: -4px;
+  right: -4px;
+  cursor: nwse-resize;
 }
 .app .workspace .panel--properties {
   width: 240px;

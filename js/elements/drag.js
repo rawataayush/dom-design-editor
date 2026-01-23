@@ -1,8 +1,8 @@
-import { clearSelection, getSelectedElement, updateElement } from "../state/store.js";
+import { getSelectedElement, updateElement } from "../state/store.js";
 import { renderCanvas } from "../canvas/render.js";
-import { selectElementById } from "./select.js";
+import { isInteractionActive, startInteraction, endInteraction } from "../state/interaction.js";
 
-let isDragActive = false;
+let isDragging = false;
 let draggedElementId = null;
 
 let startMouseX = 0;
@@ -11,20 +11,20 @@ let startMouseY = 0;
 let startElementX = 0;
 let startElementY = 0;
 
-let deltaX = 0;
-let deltaY = 0;
+const canvas = document.getElementById('canvas');
 
-let newX = 0;
-let newY = 0;
+canvas.addEventListener('mousedown', (e)=> {
+    if (isInteractionActive()) return;
+    if (!e.target.classList.contains("editor-element")) return;
 
-document.getElementById('canvas').addEventListener('mousedown', (e)=> {
-    if(!canvas.contains(e.target)) return;
-    const selectedElement = getSelectedElement();
-    const clickedId = e.target.dataset.id;
-
+    e.preventDefault();
     e.stopPropagation();
-    
-    isDragActive = true;
+
+    const selectedElement = getSelectedElement();
+    if(!selectedElement) return;
+
+    isDragging = true;
+    startInteraction();
     draggedElementId = selectedElement.id;
 
     startMouseX = e.clientX;
@@ -32,25 +32,36 @@ document.getElementById('canvas').addEventListener('mousedown', (e)=> {
 
     startElementX = selectedElement.position.x;
     startElementY = selectedElement.position.y;
-})
+});
 
 window.addEventListener('mousemove', (e)=> {
-    if(!isDragActive) return;
-    deltaX = e.clientX - startMouseX;
-    deltaY = e.clientY - startMouseY;
+    if(!isDragging) return;
 
-    newX = startElementX + deltaX;
-    newY = startElementY + deltaY;
+    const deltaX = e.clientX - startMouseX;
+    const deltaY = e.clientY - startMouseY;
 
-    updateElement(draggedElementId, {position: {x: newX, y: newY}});
-    renderCanvas();
-})
+    const newX = startElementX + deltaX;
+    const newY = startElementY + deltaY;
 
-window.addEventListener('mouseup', (e)=> {
-    if(!isDragActive) return;
+    updateElement(draggedElementId, {
+        position: {x: newX, y: newY}
+    });
 
-    isDragActive = false;
+    const elem  = document.querySelector(`.editor-element[data-id="${draggedElementId}"]`
+    );
+    if (elem) {
+        elem.style.left = newX + "px";
+        elem.style.top =newY + "px";
+    }
+});
+
+window.addEventListener('mouseup', ()=> {
+    if(!isDragging) return;
+
+    isDragging = false;
     draggedElementId = null;
+    endInteraction();
+    renderCanvas();
 })
 
 document.addEventListener('dragstart', (e)=> {

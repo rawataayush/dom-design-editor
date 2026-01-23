@@ -139,6 +139,10 @@ html {
             .btn {
                 @include button-style;
             }
+            #add-circle-btn:disabled{
+                opacity: 0.5;
+                cursor:  not-allowed;
+            }
         }
 
         .toolbar__group--right {
@@ -244,6 +248,50 @@ html {
                 border: 1px solid $color-canvas-border;
                 position: relative;
             }
+        }
+
+        .editor-element{
+            position: absolute;
+            user-select: none;
+            pointer-events: auto;
+        }
+        .editor-element.is-selected {
+            outline: 2px solid $selection-outline;
+        }
+
+        .editor-element .resize-handle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: $resize-handle;
+            border-radius: 2px;
+            z-index: 10;
+            pointer-events: all;
+        }
+
+        /* Corners */
+        .editor-element .resize-handle[data-corner="tl"] {
+            top: -4px;
+            left: -4px;
+            cursor: nwse-resize;
+        }
+
+        .editor-element .resize-handle[data-corner="tr"] {
+            top: -4px;
+            right: -4px;
+            cursor: nesw-resize;
+        }
+
+        .editor-element .resize-handle[data-corner="bl"] {
+            bottom: -4px;
+            left: -4px;
+            cursor: nesw-resize;
+        }
+
+        .editor-element .resize-handle[data-corner="br"] {
+            bottom: -4px;
+            right: -4px;
+            cursor: nwse-resize;
         }
 
         .panel--properties {

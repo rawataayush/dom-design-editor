@@ -1,4 +1,4 @@
-import { addElement, setSelectedElementId} from "../state/store.js";
+import { addElement, setSelectedElementId, getNextElementPosition} from "../state/store.js";
 import { renderCanvas } from "../canvas/render.js";
 import { generateId } from "../utils/id.js";
 
@@ -6,8 +6,8 @@ function createRectangle() {
     let rectangleObject =  {
         id: generateId(),
         type: "rect",
-        position: {x: 200, y: 120},
-        size: {height: 200, width: 200},
+        position: getNextElementPosition(),
+        size: {width: 200, height: 200},
         rotation: 0,
         styles: {backgroundColor: "#2563eb"},
         content: null
@@ -23,8 +23,8 @@ function createText() {
     let textObject = {
         id: generateId(),
         type: "text",
-        position: {x: 200, y: 120},
-        size: {height: 20, width: 80},
+        position: getNextElementPosition(),
+        size: {width: 80, height: 20},
         rotation: 0,
         styles: {},
         content: "Type here"
@@ -32,7 +32,6 @@ function createText() {
 
     addElement(textObject);
     setSelectedElementId(textObject.id);
-
     renderCanvas();
 }
 
@@ -40,8 +39,8 @@ function createCircle() {
     let circleObject = {
         id: generateId(),
         type: "circle",
-        position: {x: 200, y: 120},
-        size: {height: 200, width: 200},
+        position: getNextElementPosition,
+        size: {width: 200, height: 200},
         rotation: 0,
         styles: {backgroundColor: "#2563eb", borderRadius: 50},
         content: null
@@ -49,7 +48,6 @@ function createCircle() {
 
     addElement(circleObject);
     setSelectedElementId(circleObject.id);
-
     renderCanvas();
 }
 

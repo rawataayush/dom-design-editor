@@ -8,14 +8,13 @@ function clearCanvas() {
 }
 
 function createElementNode(element) {
-    let elem = document.createElement('div');
+    const elem = document.createElement('div');
 
     elem.classList.add('editor-element');
     elem.dataset.id = element.id;
     elem.draggable = false;
 
     // position
-    elem.style.position = "absolute";
     elem.style.left = element.position.x + 'px';
     elem.style.top = element.position.y + 'px';
 
@@ -25,36 +24,44 @@ function createElementNode(element) {
 
     // Rotation
     elem.style.transform = `rotate(${element.rotation}deg)`;
-
+    elem.style.zIndex = element.zIndex;
+    
     // Styles
     if (element.styles?.backgroundColor) elem.style.backgroundColor = element.styles.backgroundColor;
     if (element.styles?.borderRadius) elem.style.borderRadius = element.styles.borderRadius + '%';
-
     //Text Element
     if(element.type === 'text') {
         elem.textContent = element.content || "";
     }
 
     const selectId = getSelectedElementId();
-    if(selectId === element.id) elem.classList.add('is-selected');
+    if (selectId === element.id) {
+        elem.classList.add("is-selected");
 
-    if (!selectId) {
-        propertiesPanel.classList.add('is-disabled');
-    } else {
-        propertiesPanel.classList.remove('is-disabled');
+        ["tl", "tr", "bl", "br"].forEach(corner => {
+            const handle = document.createElement('div');
+            handle.classList.add("resize-handle");
+            handle.dataset.corner = corner;
+            elem.appendChild(handle);
+        });
     }
-
     return elem;
 }
 
 function renderCanvas() {
     clearCanvas();
 
-    const elements =getElements();
+    const selectId = getSelectedElementId();
 
+    if (!selectId) {
+        propertiesPanel.classList.add("is-disabled");
+    } else {
+        propertiesPanel.classList.remove("is-disabled");
+    }
+
+    const elements = getElements();
     elements.forEach(element => {
-        const node = createElementNode(element);
-        canvas.appendChild(node);
+        canvas.appendChild(createElementNode(element));
     })
 }
 
